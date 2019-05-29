@@ -12,7 +12,7 @@ import android.support.annotation.IntRange;
 import android.view.Display;
 import android.view.OrientationEventListener;
 import android.view.WindowManager;
-
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
@@ -330,6 +330,11 @@ public class CameraViewManager extends SimpleViewManager<CameraView> {
     @ReactProp(name = "surfaceColor")
     public void setSurfaceBackground(CameraView view, @ColorInt int color) {
         view.setSurfaceBgColor(color);
+    }
+
+    @ReactProp(name = "scannerOptions")
+    public void setScannerOptions(CameraView view, ReadableMap opts) {
+        view.setScannerOptions(opts);
     }
 
     public static synchronized Rect getFramingRectInPreview(int previewWidth, int previewHeight) {

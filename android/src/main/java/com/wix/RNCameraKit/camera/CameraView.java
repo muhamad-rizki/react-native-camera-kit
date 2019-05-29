@@ -7,7 +7,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
-
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.wix.RNCameraKit.Utils;
 import com.wix.RNCameraKit.camera.barcode.BarcodeFrame;
@@ -22,6 +22,7 @@ public class CameraView extends FrameLayout implements SurfaceHolder.Callback {
     private BarcodeFrame barcodeFrame;
     @ColorInt private int frameColor = Color.GREEN;
     @ColorInt private int laserColor = Color.RED;
+    private ReadableMap scannerOptions;
 
     public CameraView(ThemedReactContext context) {
         super(context);
@@ -87,6 +88,8 @@ public class CameraView extends FrameLayout implements SurfaceHolder.Callback {
             barcodeFrame = new BarcodeFrame(getContext());
             barcodeFrame.setFrameColor(frameColor);
             barcodeFrame.setLaserColor(laserColor);
+            barcodeFrame.setOffsetFrame(scannerOptions.getInt("offsetFrame"));
+            barcodeFrame.setFrameHeight(scannerOptions.getInt("frameHeight"));
             addView(barcodeFrame);
             requestLayout();
         }
@@ -127,6 +130,14 @@ public class CameraView extends FrameLayout implements SurfaceHolder.Callback {
         this.laserColor = color;
         if (barcodeFrame != null) {
             barcodeFrame.setLaserColor(laserColor);
+        }
+    }
+
+    public void setScannerOptions(ReadableMap opt){
+        scannerOptions = opt;
+        if (barcodeFrame != null) {
+            barcodeFrame.setOffsetFrame(opt.getInt("offsetFrame"));
+            barcodeFrame.setFrameHeight(opt.getInt("frameHeight"));
         }
     }
 

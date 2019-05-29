@@ -27,6 +27,9 @@ public class BarcodeFrame extends View {
     private int height;
     private int borderMargin;
 
+    private int offsetFrame;
+    private int frameHeight;
+
     private long previousFrameTime = System.currentTimeMillis();
     private int laserY;
 
@@ -58,13 +61,11 @@ public class BarcodeFrame extends View {
 
         width = getMeasuredWidth();
         height = getMeasuredHeight();
-        int marginWidth = width / WIDTH_SCALE;
-        int marginHeight = (int) (height / HEIGHT_SCALE);
 
-        frameRect.left = marginWidth;
-        frameRect.right = width - marginWidth;
-        frameRect.top = marginHeight;
-        frameRect.bottom = height - marginHeight;
+        frameRect.left = offsetFrame;
+        frameRect.right = width - offsetFrame;
+        frameRect.top = ((height - frameHeight) / 2);
+        frameRect.bottom = height - ((height - frameHeight) / 2);
     }
 
     @Override
@@ -106,5 +107,13 @@ public class BarcodeFrame extends View {
 
     public void setLaserColor(@ColorInt int laserColor) {
         laserPaint.setColor(laserColor);
+    }
+
+    public void setOffsetFrame(int offset) {
+        offsetFrame = offset;
+    }
+
+    public void setFrameHeight(int _height) {
+        frameHeight = _height;
     }
 }

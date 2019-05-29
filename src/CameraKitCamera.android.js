@@ -1,9 +1,10 @@
 import * as _ from 'lodash';
 import React, { Component } from 'react';
 import {
-	requireNativeComponent,
+  requireNativeComponent,
   NativeModules,
-  processColor
+  processColor,
+  PixelRatio,
 } from 'react-native';
 
 const NativeCamera = requireNativeComponent('CameraView', null);
@@ -17,8 +18,15 @@ export default class CameraKitCamera extends React.Component {
     _.update(transformedProps, 'frameColor', (c) => processColor(c));
     _.update(transformedProps, 'laserColor', (c) => processColor(c));
     _.update(transformedProps, 'surfaceColor', (c) => processColor(c));
-
-    return <NativeCamera {...transformedProps}/>
+    _.update(transformedProps, 'scannerOptions.offsetFrame', (c) => {
+      if (c) return PixelRatio.getPixelSizeForLayoutSize(c);
+      return 0;
+    });
+    _.update(transformedProps, 'scannerOptions.frameHeight', (c) => {
+      if (c) return PixelRatio.getPixelSizeForLayoutSize(c);
+      return 0;
+    });
+    return <NativeCamera {...transformedProps} />
   }
 
   async logData() {
