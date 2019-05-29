@@ -79,6 +79,10 @@ And in the package list in the same file (e.g. `getPackages`) add:
     ratioOverlay:'1:1',            // optional, ratio overlay on the camera and crop the image seamlessly
     ratioOverlayColor: '#00000077' // optional
   }}
+  scannerOptions={{
+    offsetFrame: 80,
+    frameHeight: 250,
+  }}
   onReadCode={(event) => console.log(event.nativeEvent.codeStringValue)} // optional
   
 />
